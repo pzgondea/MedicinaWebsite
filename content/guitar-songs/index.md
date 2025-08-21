@@ -14,5 +14,4 @@ categories: ["songs", "medicina"]   # ← add this
 {{< audio src="https://media.zgondea.com/guitar/HariHariKrishnaKrishna.mp3" >}}
 
 
-[🎵 Play All Icaros](/player/?prefix=icaros/)
-[🎸 Guitar Set](/player/?prefix=icaros/guitar/)
+[🎸 Guitar Set](/player/?prefix=guitar/)
