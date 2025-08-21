@@ -52,4 +52,6 @@ theme = "hugo-theme-gallery"
   [services.rss]
     limit = 100
 
-
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true

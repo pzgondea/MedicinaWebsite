@@ -6,12 +6,27 @@ tags: ["icaro","guitar"]
 categories: ["songs", "medicina"]   # ← add this
 ---
 
-*God's prayer*
-{{< audio src="https://media.zgondea.com/guitar/GuitarSong_Padre.mp3" >}}
-*Cristo Blanco*
-{{< audio src="https://media.zgondea.com/guitar/Gume_Cielo_Cristo_Blanco.mp3" >}}
-*Hare Hare*
-{{< audio src="https://media.zgondea.com/guitar/HariHariKrishnaKrishna.mp3" >}}
+<div style="text-align:center; font-size: 26px; font-weight: bold; margin: 20px 0; color:#999;">
+  The following selections of songs were performed by my friend and mentor Gumercindo Galindo
+</div>
 
+<div style="text-align:center; font-size: 32px; margin: 20px 0; color: #444;">
+  ⬇️⬇️⬇️
+</div>  
 
-[🎸 Guitar Set](/player/?prefix=guitar/)
+<div style="text-align:center; margin-top: 30px;">
+  <a href="https://medicina.zgondea.com/player/?prefix=guitar/" 
+     style="
+       display:inline-block;
+       padding: 16px 32px;
+       font-size: 22px;
+       font-weight: bold;
+       color: #fff;
+       background: linear-gradient(135deg, #ff6a00, #ee0979);
+       text-decoration: none;
+       border-radius: 12px;
+     ">
+     🎸 Guitar Set
+  </a>
+</div>
+

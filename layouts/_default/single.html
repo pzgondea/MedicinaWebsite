@@ -1,6 +1,20 @@
 {{ define "main" }}
   {{ partial "title.html" . }}
-  {{ partial "gallery.html" . }}
+
+  {{ $images := (.Resources.ByType "image") }}
+
+  {{ if eq (len $images) 1 }}
+    <div class="single-image">
+      {{ $img := index $images 0 }}
+      <img
+        src="{{ $img.RelPermalink }}"
+        alt="{{ with $img.Title }}{{ . }}{{ end }}"
+      />
+    </div>
+  {{ else if gt (len $images) 1 }}
+    {{ partial "gallery.html" . }}
+  {{ end }}
+
   {{ with .Content }}
     <section class="prose">
       {{ . }}

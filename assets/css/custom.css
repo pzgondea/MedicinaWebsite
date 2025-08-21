@@ -1,0 +1,24 @@
+/* Center the single image and keep it from being gigantic */
+.single-image {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.single-image img {
+  display: block;                 /* so margin auto works everywhere */
+  margin: 0 auto;
+  width: 100%;
+  max-width: 900px;               /* cap width on big screens */
+  max-height: 70vh;               /* cap height on short screens */
+  object-fit: contain;            /* don’t crop */
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.25);
+}
+
+/* Optional: narrow the text column a bit and center it */
+.prose {
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
+}
