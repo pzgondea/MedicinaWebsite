@@ -17,6 +17,7 @@ theme = "hugo-theme-gallery"
 [params]
   defaultTheme = "dark"
   description = "The Medicine Path ..."
+  customHead = ["head-extra.html"]
     [params.author]
     email = "paul@zgondea.com"
     name = "Paul"
@@ -29,6 +30,7 @@ theme = "hugo-theme-gallery"
     #boxSpacing = 10
     #targetRowHeight = 288
     #targetRowHeightTolerance = 0.25
+   
 
 
 [imaging]

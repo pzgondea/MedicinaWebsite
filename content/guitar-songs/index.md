@@ -13,7 +13,3 @@ categories: ["songs", "medicina"]   # ← add this
 *Hare Hare*
 {{< audio src="https://media.zgondea.com/guitar/HariHariKrishnaKrishna.mp3" >}}
 
-**Notes**
-- Key: Am
-- Tempo: ~70 bpm
-- Use before mapacho prayer.
