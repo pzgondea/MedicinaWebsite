@@ -8,6 +8,7 @@ categories: [icaros, medicina]
 
 # Powerful protection using Gasolina and Creolina
 
-The recipe uses several parfumes (tabacco, aqua Florida, Ruda, Abut) along with a little gasoline and a little creoline. They all are mixed together and can be sprayed for protection (for the house, for the family) 
+The recipe uses several parfumes (Tabacco, aqua Florida, Ruda, Jazmin, Ajo Magico, Abut) along with a little Gasoline and a little Creoline. They all are mixed together and can be sprayed for protection (for the house, for the family) 
+The Icaro that is sung is very deep connecting earth and air together so it can ward off evil and use electricity and gasoline power to carbonize / burn the unwanted energies. 
 
 {{< audio src="https://media.zgondea.com/4.GasolinaCreolina.mp3" >}}
