@@ -1,5 +1,5 @@
 ---
-title: Gasolina Creolina Protection Chant
+title: Gasolina Creolina Protection Icaro
 date: 2025-08-18
 summary: Short chant paired with creolina remedio for cleansing and protection.
 tags: [icaro, protection]
