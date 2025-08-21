@@ -13,3 +13,6 @@ categories: ["songs", "medicina"]   # ← add this
 *Hare Hare*
 {{< audio src="https://media.zgondea.com/guitar/HariHariKrishnaKrishna.mp3" >}}
 
+
+[🎵 Play All Icaros](/player/?prefix=icaros/)
+[🎸 Guitar Set](/player/?prefix=icaros/guitar/)

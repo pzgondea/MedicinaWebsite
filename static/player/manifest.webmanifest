@@ -1,0 +1,11 @@
+{
+  "name": "Medicinas Player",
+  "short_name": "Medicinas",
+  "start_url": "/player/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#111111",
+  "icons": [
+    { "src": "/favicon-96x96.png", "sizes": "96x96", "type": "image/png" }
+  ]
+}

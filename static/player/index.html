@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Medicinas Player</title>
+
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#111" />
+<link rel="icon" href="/favicon-96x96.png">
+
+<style>
+  :root { --bg:#0f0f0f; --fg:#fff; --muted:#959595; --accent:#22c55e; }
+  body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--fg); }
+  header { padding:16px; font-weight:700; }
+  .row { display:flex; gap:12px; align-items:center; padding:10px 16px; border-top:1px solid #1e1e1e; }
+  .row.active { background:#161616; }
+  .meta { flex:1; min-width:0; }
+  .title { font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .sub { font-size:13px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  button { background:#1f1f1f; color:#fff; border:0; padding:8px 12px; border-radius:8px; }
+  .controls { position:sticky; bottom:0; background:#0d0d0d; padding:10px 16px; display:flex; gap:8px; align-items:center; border-top:1px solid #1e1e1e; }
+  audio { width:100%; }
+  .cover { width:48px; height:48px; border-radius:6px; background:#222; flex:0 0 auto; object-fit:cover; }
+</style>
+</head>
+<body>
+<header>Medicinas Player</header>
+<main id="list"></main>
+
+<div class="controls">
+  <button id="prev">⏮</button>
+  <button id="play">▶️</button>
+  <button id="next">⏭</button>
+</div>
+
+<audio id="audio" preload="metadata"></audio>
+
+<script>
+// ======== CONFIG (auto from querystring) ===============================
+const qs = new URLSearchParams(location.search);
+// e.g. /player/?prefix=guitar/  or ?prefix=icaros/guitar/2024-forest/
+const PREFIX = (qs.get("prefix") || "icaros/").replace(/^\/+/, "");
+const API = "https://play.zgondea.com/";  // your Worker
+const PLAYLIST_URL = `${API}?prefix=${encodeURIComponent(PREFIX)}`;
+// ======================================================================
+
+const audio = document.getElementById('audio');
+const listEl = document.getElementById('list');
+const btnPlay = document.getElementById('play');
+const btnPrev = document.getElementById('prev');
+const btnNext = document.getElementById('next');
+
+const STORAGE_KEY = `medicinas.player.state:${PREFIX}`;
+let tracks = [];
+let idx = 0;
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
+}
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ idx, time: audio.currentTime }));
+}
+
+function render() {
+  listEl.innerHTML = '';
+  tracks.forEach((t, i) => {
+    const row = document.createElement('div');
+    row.className = 'row' + (i===idx ? ' active':'');
+    const cover = document.createElement('img');
+    cover.className = 'cover';
+    cover.src = t.cover || '/favicon-96x96.png';
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.innerHTML = `<div class="title">${t.title}</div><div class="sub">${t.artist || ''}${t.album ? ' • ' + t.album : ''}</div>`;
+    const btn = document.createElement('button');
+    btn.textContent = i===idx && !audio.paused ? '⏸' : '▶️';
+    btn.onclick = () => { idx=i; start(); };
+    row.onclick = (e) => { if (e.target===btn) return; idx=i; start(); };
+    row.appendChild(cover); row.appendChild(meta); row.appendChild(btn);
+    listEl.appendChild(row);
+  });
+}
+
+function start(resume=false) {
+  const t = tracks[idx];
+  if (!t) return;
+  audio.src = t.url;
+  audio.play().catch(()=>{ /* user gesture may be required */ });
+  if (resume && state.time) { audio.currentTime = state.time; }
+  updateMediaSession();
+  render();
+  saveState();
+}
+
+function next(){ idx = (idx + 1) % tracks.length; start(); }
+function prev(){ idx = (idx - 1 + tracks.length) % tracks.length; start(); }
+
+btnPlay.onclick = () => { if (audio.paused) audio.play(); else audio.pause(); render(); };
+btnNext.onclick = next;
+btnPrev.onclick = prev;
+
+audio.addEventListener('ended', next);
+audio.addEventListener('play', render);
+audio.addEventListener('pause', render);
+audio.addEventListener('timeupdate', () => { if (Math.random() < 0.1) saveState(); });
+
+function updateMediaSession() {
+  if (!('mediaSession' in navigator)) return;
+  const t = tracks[idx];
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: t.title, artist: t.artist || '', album: t.album || '',
+    artwork: t.cover ? [{src:t.cover, sizes:'512x512', type:'image/png'}] : []
+  });
+  navigator.mediaSession.setActionHandler('previoustrack', prev);
+  navigator.mediaSession.setActionHandler('nexttrack', next);
+  navigator.mediaSession.setActionHandler('play', ()=>audio.play());
+  navigator.mediaSession.setActionHandler('pause', ()=>audio.pause());
+}
+
+let state = loadState();
+
+fetch(PLAYLIST_URL)
+  .then(r=>r.json())
+  .then(data=>{
+    tracks = data.tracks || [];
+    if (state.idx >=0 && state.idx < tracks.length) idx = state.idx;
+    render();
+    if (tracks.length) start(true);
+  })
+  .catch(err=>{
+    listEl.innerHTML = `<div style="padding:16px;color:#f88">Failed to load playlist.<br>${err}</div>`;
+  });
+</script>
+
+<script>
+// PWA
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(console.warn);
+}
+</script>
+</body>
+</html>
