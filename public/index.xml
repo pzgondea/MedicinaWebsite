@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Medicina</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Medicina</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>paul@zgondea.com (Paul)</managingEditor>
+    <webMaster>paul@zgondea.com (Paul)</webMaster>
+    <copyright>© PZ</copyright>
+    <lastBuildDate>Thu, 21 Aug 2025 00:00:00 +0200</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gume&#39;s Guitar Songs</title>
+      <link>http://localhost:1313/guitar-songs/</link>
+      <pubDate>Thu, 21 Aug 2025 00:00:00 +0200</pubDate><author>paul@zgondea.com (Paul)</author>
+      <guid>http://localhost:1313/guitar-songs/</guid>
+        <media:content url="http://localhost:1313/guitar-songs/gume_hu_64541cb21613ae18.jpg" type="image/jpeg"/>
+        <description>
+          &lt;img src=&quot;http://localhost:1313/guitar-songs/gume_hu_64541cb21613ae18.jpg&quot; /&gt;
+          &lt;p&gt;&lt;no value&gt;&lt;/p&gt;
+        </description></item>
+    <item>
+      <title>Creolina Protection Chant</title>
+      <link>http://localhost:1313/creolina-gasolina-protection/</link>
+      <pubDate>Mon, 18 Aug 2025 00:00:00 +0200</pubDate><author>paul@zgondea.com (Paul)</author>
+      <guid>http://localhost:1313/creolina-gasolina-protection/</guid>
+        <media:content url="http://localhost:1313/creolina-gasolina-protection/GasolinaCreolina_hu_f3613dd19788e3c9.jpg" type="image/jpeg"/>
+        <description>
+          &lt;img src=&quot;http://localhost:1313/creolina-gasolina-protection/GasolinaCreolina_hu_f3613dd19788e3c9.jpg&quot; /&gt;
+          &lt;p&gt;&lt;no value&gt;&lt;/p&gt;
+        </description></item>
+    <item>
+      <title>Verdes Medicinas Recipe</title>
+      <link>http://localhost:1313/verdes-medicinas/</link>
+      <pubDate>Mon, 18 Aug 2025 00:00:00 +0200</pubDate><author>paul@zgondea.com (Paul)</author>
+      <guid>http://localhost:1313/verdes-medicinas/</guid>
+        <media:content url="http://localhost:1313/verdes-medicinas/VM1_hu_733ed6baf0ebb89.jpg" type="image/jpeg"/>
+        <description>
+          &lt;img src=&quot;http://localhost:1313/verdes-medicinas/VM1_hu_733ed6baf0ebb89.jpg&quot; /&gt;
+          &lt;p&gt;&lt;no value&gt;&lt;/p&gt;
+        </description></item>
+  </channel>
+</rss>

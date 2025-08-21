@@ -1,18 +1,3 @@
----
-title: "Verdes Medicinas Recipe"
-date: 2025-08-18
-summary: "Verdes Medicinas is a medicinal tea for protection and healing"
-tags: ["icaro","protection"]
-categories: ["icaros", "medicina", "recipe"]   # ← add this
-resources:
-  - src: cover.jpg
-    params:
-      cover: true
----
-
-
-{{< audio src="https://media.zgondea.com/3.VerdeVerdeMedicina.mp3" >}}
-
 # Verdes Medicinas Recipe
 
 Created: August 21, 2025 12:16 AM
@@ -208,6 +193,11 @@ Created: August 21, 2025 12:16 AM
 
 ---
 
+# Quick Reference Card
 
-
-
+| **Aspect** | **Details** |
+| --- | --- |
+| Total Time | [Time] |
+| Difficulty | [Level] |
+| Servings | [Number] |
+| Main Ingredients | [Key ingredients] |
