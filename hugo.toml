@@ -1,0 +1,53 @@
+copyright = "© PZ"
+defaultContentLanguage = "en"
+disableKinds = ["taxonomy"]
+timeZone = "Europe/Berlin"
+timeout = "120s"
+baseURL = "https://notes.zgondea.com/"
+title = "Medicina"
+languageCode = "en-us"
+theme = "hugo-theme-gallery"
+[pagination]
+  pagerSize = 30
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[params]
+  defaultTheme = "dark"
+  description = "The Medicine Path ..."
+    [params.author]
+    email = "paul@zgondea.com"
+    name = "Paul"
+    [params.socialIcons]
+    github = "https://github.com/pzgondea/MedicinaWebsite"
+    email = "mailto:paul@zgondea.com"
+    #website = "https://zgondea.com"
+    #whatsapp = "1234567890"
+  [params.gallery]
+    #boxSpacing = 10
+    #targetRowHeight = 288
+    #targetRowHeightTolerance = 0.25
+
+
+[imaging]
+  quality = 75
+  resampleFilter = "CatmullRom"
+  [imaging.exif]
+    disableDate = false
+    disableLatLong = true
+    includeFields = "ImageDescription|Orientation"
+
+[menu]
+  [[menu.footer]]
+    name = "GitHub"
+    url = "https://github.com/pzgondea/MedicinaWebsite"
+    weight = 3    
+
+
+[services]
+  [services.rss]
+    limit = 100
+
+
