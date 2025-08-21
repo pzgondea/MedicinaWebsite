@@ -133,24 +133,6 @@ Created: August 21, 2025 12:16 AM
 
 ---
 
-# Chef's Notes & Tips
-
-<aside>
-👨‍🍳
-
-**Pro Tips from the Chef:**
-
-- Important tip #1
-- Cooking technique tip #2
-- Ingredient substitution tip #3
-</aside>
-
-### Recipe Variations
-
-- **Variation 1:** [Description of how to modify]
-- **Variation 2:** [Another way to customize]
-- **Dietary Modifications:** [Vegan, gluten-free, etc. options]
-
 ### Storage Instructions
 
 - **Refrigerator:** [How long and how to store]
@@ -159,27 +141,6 @@ Created: August 21, 2025 12:16 AM
 
 ---
 
-# Recipe Reviews & Ratings
-
-## My Rating: ⭐⭐⭐⭐⭐
-
-### What Worked Well:
-
-- Point 1
-- Point 2
-- Point 3
-
-### Next Time I'll Try:
-
-- Improvement idea 1
-- Modification idea 2
-
-### Family/Friends Feedback:
-
-> *"Add quotes from people who tried your recipe"*
-> 
-
----
 
 # Recipe Source & Credits
 
@@ -192,12 +153,3 @@ Created: August 21, 2025 12:16 AM
 **Created By:** @Paul Zgondea
 
 ---
-
-# Quick Reference Card
-
-| **Aspect** | **Details** |
-| --- | --- |
-| Total Time | [Time] |
-| Difficulty | [Level] |
-| Servings | [Number] |
-| Main Ingredients | [Key ingredients] |
