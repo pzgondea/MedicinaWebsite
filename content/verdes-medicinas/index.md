@@ -144,8 +144,6 @@ Created: August 21, 2025 12:16 AM
 
 [https://media.zgondea.com/3.VerdeVerdeMedicina.mp3](https://media.zgondea.com/3.VerdeVerdeMedicina.mp3)
 
-[Add your cooking playlist or background music here](https://www.notion.so)
-
 ---
 
 # Chef's Notes & Tips
