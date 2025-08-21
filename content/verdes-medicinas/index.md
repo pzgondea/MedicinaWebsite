@@ -49,9 +49,18 @@ Created: August 21, 2025 12:16 AM
 
 ### Seasonal Herbs
 
-- [ ]  John’s Worth
-- [ ]  Coada Soricelului
+- [ ]  Jon’s Worth
+- [ ]  Yarrow
 - [ ]  White Sage
+- [ ]  Rosemarry 
+- [ ]  Majoram
+- [ ]  Pine / Fir leaves and buds
+- [ ]  Thyme
+- [ ]  Garden Sage 
+- [ ]  Cotton Lavender (small amount)
+- [ ]  Marigold
+- [ ]  Camomille
+- [ ]  Other optionalmedicinal herbs (Galium verum, Eucalyptus young leaves, Verbascum densiflorum, Artemisa, etc)
 
 ### Spices
 
@@ -135,12 +144,9 @@ Created: August 21, 2025 12:16 AM
 
 ![VM11.jpg](VM11.jpg)
 
-# Recipe Media & Inspiration
 
-## Icaro 🎵
+# Icaro 🎵
 
-> Icaro for the Verdes Medecinas
-> 
 
 [https://media.zgondea.com/3.VerdeVerdeMedicina.mp3](https://media.zgondea.com/3.VerdeVerdeMedicina.mp3)
 
@@ -166,33 +172,15 @@ Created: August 21, 2025 12:16 AM
 
 ### Storage Instructions
 
-- **Refrigerator:** [How long and how to store]
-- **Freezer:** [Freezing instructions if applicable]
-- **Reheating:** [Best methods to reheat]
+- **Refrigerator:** [Can be stored for 2-4 weeks in the Refrigirator]
+- **Freezer:** [Freezing can store it for up to 1 year]
+- **Reheating:** [Always heat it up to hot temperature before consumption or bath - it re-activates it]
 
 ---
 
 # Recipe Reviews & Ratings
 
 ## My Rating: ⭐⭐⭐⭐⭐
-
-### What Worked Well:
-
-- Point 1
-- Point 2
-- Point 3
-
-### Next Time I'll Try:
-
-- Improvement idea 1
-- Modification idea 2
-
-### Family/Friends Feedback:
-
-> *"Add quotes from people who tried your recipe"*
-> 
-
----
 
 # Recipe Source & Credits
 
