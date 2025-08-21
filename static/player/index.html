@@ -5,112 +5,224 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Medicinas Player</title>
 
-<link rel="manifest" href="./manifest.webmanifest">
-<meta name="theme-color" content="#111" />
-<link rel="icon" href="/favicon-96x96.png">
+<!-- Plyr (nice media controls) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.css" />
 
 <style>
-  :root { --bg:#0f0f0f; --fg:#fff; --muted:#959595; --accent:#22c55e; }
+  :root { --bg:#0f0f0f; --fg:#fff; --muted:#a1a1a1; --card:#151515; --border:#222; --accent:#22c55e; }
+  * { box-sizing: border-box; }
   body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--fg); }
-  header { padding:16px; font-weight:700; }
-  .row { display:flex; gap:12px; align-items:center; padding:10px 16px; border-top:1px solid #1e1e1e; }
-  .row.active { background:#161616; }
-  .meta { flex:1; min-width:0; }
+  header { padding:16px 20px; font-size:18px; font-weight:700; border-bottom:1px solid var(--border); }
+  .layout { display:grid; grid-template-columns:1fr; gap:0; }
+  @media (min-width: 900px){
+    .layout { grid-template-columns: 360px 1fr; height: calc(100vh - 64px); }
+  }
+  .side { border-right:1px solid var(--border); overflow:auto; }
+  .controls { position:sticky; top:0; z-index:10; background:var(--bg); padding:12px; border-bottom:1px solid var(--border); }
+  .search { width:100%; padding:10px 12px; border-radius:10px; background:#111; color:var(--fg); border:1px solid var(--border); }
+  .list { padding:8px; }
+  .row { display:flex; gap:12px; align-items:center; padding:10px 8px; border-radius:10px; cursor:pointer; }
+  .row:hover { background:#131313; }
+  .row.active { background:#171717; outline:1px solid #1f1f1f; }
+  .cover { width:48px; height:48px; border-radius:8px; background:#222; object-fit:cover; flex:0 0 auto; }
+  .meta { min-width:0; flex:1; }
   .title { font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .sub { font-size:13px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  button { background:#1f1f1f; color:#fff; border:0; padding:8px 12px; border-radius:8px; }
-  .controls { position:sticky; bottom:0; background:#0d0d0d; padding:10px 16px; display:flex; gap:8px; align-items:center; border-top:1px solid #1e1e1e; }
-  audio { width:100%; }
-  .cover { width:48px; height:48px; border-radius:6px; background:#222; flex:0 0 auto; object-fit:cover; }
+  .sub { font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .badges { display:flex; gap:8px; margin-top:6px; }
+  .badge { font-size:11px; padding:2px 8px; border-radius:999px; background:#1a1a1a; border:1px solid var(--border); color:var(--muted); }
+
+  .player { padding:16px; display:flex; flex-direction:column; gap:16px; height:100%; }
+  .now { display:flex; gap:16px; align-items:center; }
+  .now .art { width:84px; height:84px; border-radius:12px; background:#222; object-fit:cover; }
+  .now .text { min-width:0; }
+  .now .t1 { font-weight:700; font-size:16px; }
+  .now .t2 { color:var(--muted); font-size:13px; margin-top:4px; }
+  .actions { display:flex; gap:8px; }
+  .btn { background:#1a1a1a; color:#fff; border:1px solid var(--border); border-radius:10px; padding:8px 12px; font-size:14px; }
+  .btn:active { transform: translateY(1px); }
+  .plyr--full-ui input[type="range"] { color: var(--accent); }
+  .sticky-controls { position:sticky; bottom:0; background:var(--card); border-top:1px solid var(--border); padding:8px; border-radius:12px; }
+  .footer-note { color:var(--muted); font-size:12px; text-align:center; padding:6px 0; }
 </style>
 </head>
 <body>
 <header>Medicinas Player</header>
-<main id="list"></main>
 
-<div class="controls">
-  <button id="prev">⏮</button>
-  <button id="play">▶️</button>
-  <button id="next">⏭</button>
+<div class="layout">
+  <aside class="side">
+    <div class="controls">
+      <input id="search" class="search" placeholder="Search… (title/album/artist)" />
+      <div class="badges" style="margin-top:10px">
+        <button class="btn" id="shuffle">Shuffle</button>
+        <button class="btn" id="repeat">Repeat: Off</button>
+      </div>
+    </div>
+    <div id="list" class="list"></div>
+  </aside>
+
+  <section class="player">
+    <div class="now">
+      <img id="art" class="art" src="/favicon-96x96.png" alt="">
+      <div class="text">
+        <div id="now-title" class="t1">—</div>
+        <div id="now-sub" class="t2">—</div>
+      </div>
+      <div class="actions" style="margin-left:auto">
+        <button class="btn" id="prev">⏮</button>
+        <button class="btn" id="play">▶️</button>
+        <button class="btn" id="next">⏭</button>
+      </div>
+    </div>
+
+    <audio id="audio" crossorigin="anonymous"></audio>
+    <div class="sticky-controls">
+      <!-- Plyr UI attaches to the audio element -->
+    </div>
+    <div class="footer-note">Tip: install to Home screen for a PWA experience.</div>
+  </section>
 </div>
 
-<audio id="audio" preload="metadata"></audio>
+<!-- Plyr JS -->
+<script src="https://cdn.jsdelivr.net/npm/plyr@3/dist/plyr.min.js"></script>
 
 <script>
-// ======== CONFIG (auto from querystring) ===============================
+/** CONFIG **/
 const qs = new URLSearchParams(location.search);
-// e.g. /player/?prefix=guitar/  or ?prefix=icaros/guitar/2024-forest/
+// e.g. /player/?prefix=icaros/guitar/  (trailing slash ok)
 const PREFIX = (qs.get("prefix") || "icaros/").replace(/^\/+/, "");
-const API = "https://play.zgondea.com/";  // your Worker
-const PLAYLIST_URL = `${API}?prefix=${encodeURIComponent(PREFIX)}`;
-// ======================================================================
+const API = "https://play.zgondea.com/";
+const FEED = `${API}?prefix=${encodeURIComponent(PREFIX)}`;
+// lock CORS to your site in the Worker if you prefer
 
+/** STATE **/
 const audio = document.getElementById('audio');
+const plyr = new Plyr(audio, { controls:['play','progress','current-time','duration','mute','volume'] });
 const listEl = document.getElementById('list');
-const btnPlay = document.getElementById('play');
+const artEl = document.getElementById('art');
+const nowTitle = document.getElementById('now-title');
+const nowSub = document.getElementById('now-sub');
 const btnPrev = document.getElementById('prev');
 const btnNext = document.getElementById('next');
+const btnPlay = document.getElementById('play');
+const searchEl = document.getElementById('search');
+const btnShuffle = document.getElementById('shuffle');
+const btnRepeat = document.getElementById('repeat');
 
-const STORAGE_KEY = `medicinas.player.state:${PREFIX}`;
 let tracks = [];
+let view = []; // filtered order for UI
 let idx = 0;
+let repeat = 0; // 0-off, 1-one, 2-all
+const KEY = `medicinas.state:${PREFIX}`;
 
-function loadState() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; }
-}
-function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ idx, time: audio.currentTime }));
+function loadState(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } }
+function saveState(){ try { localStorage.setItem(KEY, JSON.stringify({ idx: currentIndex(), t: audio.currentTime })); } catch {} }
+
+function current(){ return view[idx]; }
+function currentIndex(){
+  const cur = current();
+  return cur ? tracks.findIndex(t => t.id === cur.id) : 0;
 }
 
-function render() {
+function prettify(s){ return (s||'').replace(/\s+/g,' ').trim(); }
+
+function renderList(){
   listEl.innerHTML = '';
-  tracks.forEach((t, i) => {
+  view.forEach((t, i) => {
     const row = document.createElement('div');
     row.className = 'row' + (i===idx ? ' active':'');
-    const cover = document.createElement('img');
-    cover.className = 'cover';
-    cover.src = t.cover || '/favicon-96x96.png';
+    const img = document.createElement('img');
+    img.className = 'cover';
+    img.src = t.cover || '/favicon-96x96.png';
     const meta = document.createElement('div');
     meta.className = 'meta';
-    meta.innerHTML = `<div class="title">${t.title}</div><div class="sub">${t.artist || ''}${t.album ? ' • ' + t.album : ''}</div>`;
-    const btn = document.createElement('button');
-    btn.textContent = i===idx && !audio.paused ? '⏸' : '▶️';
-    btn.onclick = () => { idx=i; start(); };
-    row.onclick = (e) => { if (e.target===btn) return; idx=i; start(); };
-    row.appendChild(cover); row.appendChild(meta); row.appendChild(btn);
+    meta.innerHTML = `
+      <div class="title">${escapeHtml(t.title)}</div>
+      <div class="sub">${escapeHtml([t.artist, t.album].filter(Boolean).join(' • '))}</div>
+    `;
+    row.appendChild(img);
+    row.appendChild(meta);
+    row.addEventListener('click', ()=> { idx=i; playCurrent(true); });
     listEl.appendChild(row);
   });
 }
 
-function start(resume=false) {
-  const t = tracks[idx];
-  if (!t) return;
+function escapeHtml(s){ return (s||'').replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])); }
+
+function updateNow(){
+  const t = current(); if (!t) return;
+  artEl.src = t.cover || '/favicon-96x96.png';
+  nowTitle.textContent = t.title || '—';
+  nowSub.textContent = [t.artist,t.album].filter(Boolean).join(' • ') || '—';
+  [...document.querySelectorAll('.row')].forEach((r,i)=> r.classList.toggle('active', i===idx));
+}
+
+async function playCurrent(resume=false){
+  const t = current(); if (!t) return;
   audio.src = t.url;
-  audio.play().catch(()=>{ /* user gesture may be required */ });
-  if (resume && state.time) { audio.currentTime = state.time; }
+  try { await audio.play(); } catch(e) { /* requires user gesture */ }
+  if (resume && state.t) audio.currentTime = state.t;
   updateMediaSession();
-  render();
+  updateNow();
   saveState();
 }
 
-function next(){ idx = (idx + 1) % tracks.length; start(); }
-function prev(){ idx = (idx - 1 + tracks.length) % tracks.length; start(); }
+function next(){
+  if (repeat===1) { playCurrent(false); return; }
+  idx = (idx + 1) % view.length;
+  playCurrent(false);
+}
+function prev(){
+  if (audio.currentTime > 3) { audio.currentTime = 0; return; }
+  idx = (idx - 1 + view.length) % view.length;
+  playCurrent(false);
+}
 
-btnPlay.onclick = () => { if (audio.paused) audio.play(); else audio.pause(); render(); };
 btnNext.onclick = next;
 btnPrev.onclick = prev;
+btnPlay.onclick = ()=> audio.paused ? audio.play() : audio.pause();
+audio.addEventListener('ended', ()=> repeat===2 ? next() : (idx+1<view.length ? next() : (repeat===0?null:next())));
+audio.addEventListener('play', saveState);
+audio.addEventListener('pause', saveState);
+audio.addEventListener('timeupdate', ()=> { if (Math.random()<0.1) saveState(); });
 
-audio.addEventListener('ended', next);
-audio.addEventListener('play', render);
-audio.addEventListener('pause', render);
-audio.addEventListener('timeupdate', () => { if (Math.random() < 0.1) saveState(); });
+btnShuffle.onclick = ()=>{
+  view = shuffle([...tracks]);
+  idx = 0;
+  renderList();
+  playCurrent(false);
+};
+btnRepeat.onclick = ()=>{
+  repeat = (repeat+1)%3;
+  btnRepeat.textContent = `Repeat: ${['Off','One','All'][repeat]}`;
+};
 
-function updateMediaSession() {
+function shuffle(arr){
+  for (let i=arr.length-1; i>0; i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+function filterList(){
+  const q = searchEl.value.trim().toLowerCase();
+  if (!q) { view = [...tracks]; renderList(); return; }
+  view = tracks.filter(t => (
+    (t.title||'').toLowerCase().includes(q) ||
+    (t.album||'').toLowerCase().includes(q) ||
+    (t.artist||'').toLowerCase().includes(q)
+  ));
+  idx = 0;
+  renderList();
+}
+searchEl.addEventListener('input', filterList);
+
+function updateMediaSession(){
   if (!('mediaSession' in navigator)) return;
-  const t = tracks[idx];
+  const t = current(); if (!t) return;
   navigator.mediaSession.metadata = new MediaMetadata({
-    title: t.title, artist: t.artist || '', album: t.album || '',
-    artwork: t.cover ? [{src:t.cover, sizes:'512x512', type:'image/png'}] : []
+    title: t.title || '', artist: t.artist || '', album: t.album || '',
+    artwork: t.cover ? [{ src: t.cover, sizes:'512x512', type:'image/png' }] : []
   });
   navigator.mediaSession.setActionHandler('previoustrack', prev);
   navigator.mediaSession.setActionHandler('nexttrack', next);
@@ -120,24 +232,36 @@ function updateMediaSession() {
 
 let state = loadState();
 
-fetch(PLAYLIST_URL)
+fetch(FEED)
   .then(r=>r.json())
   .then(data=>{
-    tracks = data.tracks || [];
-    if (state.idx >=0 && state.idx < tracks.length) idx = state.idx;
-    render();
-    if (tracks.length) start(true);
+    // expect { tracks:[{title,artist,album,url,cover?,id}] }
+    tracks = Array.isArray(data.tracks) ? data.tracks : [];
+    // fallback: if Worker returns array itself
+    if (!tracks.length && Array.isArray(data)) {
+      tracks = data.map(x=>({ title:x.name?.split('/').pop()?.replace(/\.[^.]+$/,'') || 'Track', url:x.url }));
+    }
+    // make sure all items usable
+    tracks = tracks.map(t=>({
+      id: t.id || t.url,
+      title: prettify(t.title || 'Track'),
+      artist: t.artist || 'Paul',
+      album: t.album || '',
+      url: t.url,
+      cover: t.cover || ''
+    }));
+
+    view = [...tracks];
+    // restore state
+    if (Number.isInteger(state.idx) && state.idx >=0 && state.idx < view.length) idx = state.idx;
+    renderList();
+    if (view.length) playCurrent(true);
+    else listEl.innerHTML = `<div style="padding:12px;color:#f88">No tracks found for prefix <code>${PREFIX}</code>.</div>`;
   })
   .catch(err=>{
-    listEl.innerHTML = `<div style="padding:16px;color:#f88">Failed to load playlist.<br>${err}</div>`;
+    listEl.innerHTML = `<div style="padding:12px;color:#f88">Failed to load playlist.<br>${err}</div>`;
   });
 </script>
 
-<script>
-// PWA
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').catch(console.warn);
-}
-</script>
 </body>
 </html>
